@@ -1,5 +1,7 @@
+from typing import Optional, Dict
+
 class Cube:
-    def __init__(self, face = None):
+    def __init__(self, face: Optional[dict] = None):
         if face is None:
             face = {
                 "Top": [
@@ -34,7 +36,7 @@ class Cube:
                     ["🟧", "🟧", "🟧"]
                     ]
             }
-            self.face = face
+        self.face = face
     def print_cube(self, face):
         content = f"---| {self.face}|---\n"
         for row in self.face[face]:
@@ -108,9 +110,9 @@ class Cube:
             self.face["Bottom"][2][i] = self.face["Left"][i][0]
             self.face["Left"][i][0] = temp[i]
 
-
-myCube = Cube()
-##print(myCube.face)
+#myCube = Cube()
+myCube = Cube({'Top': [['⬜', '⬜', '⬜'], ['⬜', '⬜', '⬜'], ['⬜', '⬜', '⬜']], 'Bottom': [['🟨', '🟨', '🟨'], ['🟨', '🟨', '🟨'], ['🟨', '🟨', '🟨']], 'Left': [['🟩', '🟩', '🟩'], ['🟩', '🟩', '🟩'], ['🟩', '🟩', '🟩']], 'Right': [['🟦', '🟦', '🟦'], ['🟦', '🟦', '🟦'], ['🟦', '🟦', '🟦']], 'Front': [['🟥', '🟥', '🟥'], ['🟥', '🟥', '🟥'], ['🟥', '🟥', '🟥']], 'Back': [['🟧', '🟧', '🟧'], ['🟧', '🟧', '🟧'], ['🟧', '🟧', '🟧']]})
+print(myCube.face)
 print("Yo")
-print(myCube.print_cube("Top"))
+##print(myCube.print_cube("Top"))
 print("Yo")
