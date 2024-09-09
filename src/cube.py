@@ -4,33 +4,33 @@ class Cube:
     def __init__(self, face: Optional[dict] = None):
         if face is None:
             face = {
-                "Top": [
+                "top": [
                     ["⬜", "⬜", "⬜"],
                     ["⬜", "⬜", "⬜"],
                     ["⬜", "⬜", "⬜"]
                     ],
-                "Bottom": [
+                "bottom": [
                     ["🟨", "🟨", "🟨"],
                     ["🟨", "🟨", "🟨"],
                     ["🟨", "🟨", "🟨"]
                     ],
-                "Left": [
+                "left": [
                     ["🟩", "🟩", "🟩"],
                     ["🟩", "🟩", "🟩"],
                     ["🟩", "🟩", "🟩"]
                     ],
-                "Right": [
+                "right": [
                     ["🟦", "🟦", "🟦"],
                     ["🟦", "🟦", "🟦"],
                     ["🟦", "🟦", "🟦"]
                     ],
-                "Front": [
+                "front": [
                     ["🟥", "🟥", "🟥"],
                     ["🟥", "🟥", "🟥"],
                     ["🟥", "🟥", "🟥"]
                     ]
                     ,
-                "Back": [
+                "back": [
                     ["🟧", "🟧", "🟧"],
                     ["🟧", "🟧", "🟧"],
                     ["🟧", "🟧", "🟧"]
@@ -38,10 +38,11 @@ class Cube:
             }
         self.face = face
     def print_cube(self, face):
-        content = f"---| {self.face}|---\n"
+        state = f"---| {self.face}|---\n"
+        content = ""
         for row in self.face[face]:
             content += f"\n|{row[0]} | {row[1]} | {row[2]} |\n"
-        return content
+        return {"State": state, "Face": content}
     def rotate_face_clockwise(self, face_name):
         face = self.face[face_name]
         ####### Corner cublet rotation ######
