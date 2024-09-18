@@ -42,7 +42,7 @@ class Cube:
         for row in self.state[face]:
             print(row)
             content += f"\n|{row[0]} | {row[1]} | {row[2]} |\n"
-        return {"State": face, "Face": content}
+        return {"State": face, "Face": content, "dict": self.state["bottom"]}
 
     def rotate_face_clockwise(self, face_name):
         state = self.state[face_name]
@@ -61,13 +61,14 @@ class Cube:
         state[1][2] = temp
 
     def turn_cube(self, turn_direction: str, times: int):
-        pass
+        return TurnCubeFactory.turn_cube(self, turn_direction)
 
 class TurnCubeFactory():
     @staticmethod
     def turn_cube(cube: Cube, turn_direction):
+
         if turn_direction == "right":
-            cube.state
+            cube.state["left"], cube.state["front"], cube.state["right"] = cube.state["front"], cube.state["right"], cube.state["back"]
     """
 
     def rotate_top_clockwise(self):
