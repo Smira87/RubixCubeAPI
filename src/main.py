@@ -1,7 +1,5 @@
 from fastapi import FastAPI
-from schemas import State
-from cube import Cube
-from typing import Optional
+from operations.router import router as router_operation
 app = FastAPI()
 
 app.include_router(router_operation)

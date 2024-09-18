@@ -7,9 +7,8 @@ router = APIRouter(
     prefix = "/operations",
     tags = ["Operation"]
 )
-
-@router.post("/show")
-def show_face(state: State, side: Optional[str] = "front"):
+@router.post("/")
+def show_face(state: Optional[State] = None, side: Optional[str] = "front"):
     newCube = Cube({"top": state.top, "bottom": state.bottom, "left": state.left,
                     "right": state.right, "front": state.front, "back": state.back})
     return newCube.print_cube(side)
