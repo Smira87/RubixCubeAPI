@@ -1,9 +1,9 @@
 from typing import Optional, Dict
 
 class Cube:
-    def __init__(self, face: Optional[dict] = None):
-        if face is None:
-            face = {
+    def __init__(self, state: Optional[dict] = None):
+        if state is None:
+            state = {
                 "top": [
                     ["⬜", "⬜", "⬜"],
                     ["⬜", "⬜", "⬜"],
@@ -36,28 +36,39 @@ class Cube:
                     ["🟧", "🟧", "🟧"]
                     ]
             }
-        self.face = face
+        self.state = state
     def print_cube(self, face):
-        state = f"---| {self.face}|---\n"
         content = ""
-        for row in self.face[face]:
+        for row in self.state[face]:
+            print(row)
             content += f"\n|{row[0]} | {row[1]} | {row[2]} |\n"
-        return {"State": state, "Face": content}
+        return {"State": face, "Face": content}
+
     def rotate_face_clockwise(self, face_name):
-        face = self.face[face_name]
+        state = self.state[face_name]
         ####### Corner cublet rotation ######
-        temp = face[0][0]
-        face[0][0] = face[2][0]
-        face[2][0] = face[2][2]
-        face[2][2] = face[0][2]
-        face[0][2] = temp
+        temp = state[0][0]
+        state[2][0] = state[2][2]
+        state[0][0] = state[2][0]
+        state[2][2] = state[0][2]
+        state[0][2] = temp
 
         ###### Edge cublet rotation ######
-        temp = face[0][1]
-        face[0][1] = face[1][0]
-        face[1][0] = face[2][1]
-        face[2][1] = face[1][2]
-        face[1][2] = temp
+        temp = state[0][1]
+        state[0][1] = state[1][0]
+        state[1][0] = state[2][1]
+        state[2][1] = state[1][2]
+        state[1][2] = temp
+
+    def turn_cube(self, turn_direction: str, times: int):
+        pass
+
+class TurnCubeFactory():
+    @staticmethod
+    def turn_cube(cube: Cube, turn_direction):
+        if turn_direction == "right":
+            cube.state
+    """
 
     def rotate_top_clockwise(self):
         self.rotate_face_clockwise("Top")
@@ -111,8 +122,14 @@ class Cube:
             self.face["Bottom"][2][i] = self.face["Left"][i][0]
             self.face["Left"][i][0] = temp[i]
 
+"""
 #myCube = Cube()
-#myCube = Cube({'Top': [['⬜', '⬜', '⬜'], ['⬜', '⬜', '⬜'], ['⬜', '⬜', '⬜']], 'Bottom': [['🟨', '🟨', '🟨'], ['🟨', '🟨', '🟨'], ['🟨', '🟨', '🟨']], 'Left': [['🟩', '🟩', '🟩'], ['🟩', '🟩', '🟩'], ['🟩', '🟩', '🟩']], 'Right': [['🟦', '🟦', '🟦'], ['🟦', '🟦', '🟦'], ['🟦', '🟦', '🟦']], 'Front': [['🟥', '🟥', '🟥'], ['🟥', '🟥', '🟥'], ['🟥', '🟥', '🟥']], 'Back': [['🟧', '🟧', '🟧'], ['🟧', '🟧', '🟧'], ['🟧', '🟧', '🟧']]})
-#print(myCube.face)
-#print(myCube.print_cube("Top"))
+myCube = Cube({'top': [['1', '2', '3'], ['⬜', '⬜', '⬜'], ['⬜', '⬜', '⬜']], 'bottom': [['🟨', '🟨', '🟨'], ['🟨', '🟨', '🟨'], ['🟨', '🟨', '🟨']], 'left': [['🟩', '🟩', '🟩'], ['🟩', '🟩', '🟩'], ['🟩', '🟩', '🟩']], 'right': [['🟦', '🟦', '🟦'], ['🟦', '🟦', '🟦'], ['🟦', '🟦', '🟦']], 'front': [['🟥', '🟥', '🟥'], ['🟥', '🟥', '🟥'], ['🟥', '🟥', '🟥']], 'back': [['🟧', '🟧', '🟧'], ['🟧', '🟧', '🟧'], ['🟧', '🟧', '🟧']]})
+print(myCube.state)
+print(myCube.state)
+print(myCube.print_cube("top"))
+
+myCube.rotate_face_clockwise("top")
+
+print(myCube.state)
 
