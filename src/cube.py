@@ -59,7 +59,21 @@ class Cube:
         state[1][0] = state[2][1]
         state[2][1] = state[1][2]
         state[1][2] = temp
+    def rotate_face_counter_clockwise(self, face_name):
+        face = self.face[face_name]
+        ####### Corner cublet rotation ######
+        temp = face[0][0]
+        face[0][0] = face[0][2]
+        face[0][2] = face[2][2]
+        face[2][2] = face[2][0]
+        face[2][0] = temp
 
+        ###### Side cublet rotation ######
+        temp = face[0][1]
+        face[0][1] = face[1][2]
+        face[1][2] = face[2][1]
+        face[2][1] = face[1][0]
+        face[1][0] = temp
     def turn_cube(self, turn_direction: str, times: int):
         return TurnCubeFactory.turn_cube(self, turn_direction)
 
@@ -68,7 +82,14 @@ class TurnCubeFactory():
     def turn_cube(cube: Cube, turn_direction):
 
         if turn_direction == "right":
-            cube.state["left"], cube.state["front"], cube.state["right"] = cube.state["front"], cube.state["right"], cube.state["back"]
+            cube.rotate_face_clockwise("Right")
+            temp_col = [cube.state["Top"][i][2] for i in range(3)]
+            for i in range(3):
+                cube.state["Top"][i][2] = cube.state["Front"][i][2]
+                cube.state["Front"][i][2] = cube.state["Bottom"][i][2]
+                cube.state["Bottom"][i][2] = cube.state["Back"][2 - i][0]
+                cube.state["Back"][2 - i][0] = temp_col[i]
+            return cube
     """
 
     def rotate_top_clockwise(self):
